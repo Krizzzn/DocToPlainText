@@ -23,6 +23,7 @@ namespace DocToPlainText
             }
 
             Microsoft.Office.Interop.Word.ApplicationClass wordObject = new ApplicationClass();
+            object filename = Path.GetTempFileName();
 
             try {
                 object file = args[0];
@@ -33,17 +34,9 @@ namespace DocToPlainText
                     ref nullobject, ref nullobject, ref nullobject, ref nullobject,
                     ref nullobject, ref nullobject, ref nullobject, ref nullobject);
                 try {
-                    object filename = Path.GetTempFileName();
                     object format = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatDOSText;
                     object encoding = "1252";
                     docs.SaveAs(ref filename, ref format, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref encoding, ref nullobject, ref nullobject, ref nullobject, ref nullobject);
-
-                    Console.Write(File.ReadAllText(filename.ToString()));
-
-                    if (args.Length >= 2)
-                        File.Copy(filename.ToString(), args[1], true);
-
-                    File.Delete(filename.ToString());
                 }
                 finally {
                     docs.Close();
@@ -53,6 +46,13 @@ namespace DocToPlainText
                 wordObject.Quit();
 
             }
+
+            Console.Write(File.ReadAllText(filename.ToString()));
+
+            if (args.Length >= 2)
+                File.Copy(filename.ToString(), args[1], true);
+
+            File.Delete(filename.ToString());
         }
     }
 }
