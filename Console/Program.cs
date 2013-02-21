@@ -25,6 +25,7 @@ namespace DocToPlainText
             Microsoft.Office.Interop.Word.ApplicationClass wordObject = new ApplicationClass();
             object filename = Path.GetTempFileName();
 
+            
             try {
                 object file = args[0];
                 object nullobject = System.Reflection.Missing.Value;
@@ -35,7 +36,7 @@ namespace DocToPlainText
                     ref nullobject, ref nullobject, ref nullobject, ref nullobject);
                 try {
                     object format = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatDOSText;
-                    object encoding = "1252";
+                    object encoding = Microsoft.Office.Core.MsoEncoding.msoEncodingUTF8;
                     docs.SaveAs(ref filename, ref format, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref nullobject, ref encoding, ref nullobject, ref nullobject, ref nullobject, ref nullobject);
                 }
                 finally {
