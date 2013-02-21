@@ -13,12 +13,12 @@ namespace DocToPlainText
         static void Main(string[] args)
         {
             if (args.Length == 0) {
-                Console.WriteLine("Sample call:\nDocToPlainText.exe \"d:\\mywordfile.docx\"");
+                PrintHelp();
                 return;
             }
             if (!File.Exists(args[0])) {
                 Console.WriteLine(args[0] + " file does not exist");
-                Console.WriteLine("Sample call:\nDocToPlainText.exe \"d:\\mywordfile.docx\"");
+                PrintHelp();
                 return;
             }
 
@@ -54,6 +54,11 @@ namespace DocToPlainText
                 File.Copy(filename.ToString(), args[1], true);
 
             File.Delete(filename.ToString());
+        }
+
+        private static void PrintHelp()
+        {
+            Console.WriteLine("\nSample call:\nDocToPlainText.exe \"d:\\mywordfile.docx\"");
         }
     }
 }
